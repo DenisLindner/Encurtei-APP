@@ -16,6 +16,7 @@ export default function Home() {
     if(result.shortUrl) {
       const newUrl = window.location.origin+'/'+result.shortUrl
       setShortUrl(newUrl);
+      setCopied(false);
     } else {
       alert(result.error)
     }
@@ -26,7 +27,7 @@ export default function Home() {
   }
 
   const copy = async () => {
-    navigator.clipboard.writeText(url).then(() => setCopied(true)).catch(err => alert('Erro ao copiar:' + err))
+    navigator.clipboard.writeText(shortUrl).then(() => setCopied(true)).catch(err => alert('Erro ao copiar:' + err))
   }
 
   return (
