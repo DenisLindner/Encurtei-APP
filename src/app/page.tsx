@@ -7,10 +7,12 @@ export default function Home() {
   const [url, setUrl] = useState('')
   const [shortUrl, setShortUrl] = useState('')
   const [copied, setCopied] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+    setLoading(true);
     const result = await GenerateShortUrl(url);
     
     if(result.shortUrl) {
@@ -18,8 +20,9 @@ export default function Home() {
       setShortUrl(newUrl);
       setCopied(false);
     } else {
-      alert(result.error)
+      setIsError(true);
     }
+    setLoading(false);
   }
 
   const handleUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,11 +42,16 @@ export default function Home() {
         </header>
         <form onSubmit={handleSubmit}>
           <input onChange={handleUpdate} value={url} type="url" name="url" id="url" placeholder="Insira a sua URL aqui" required/>
-          <button type="submit">Encurtar</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Encurtando...' : 'Encurtar'}
+          </button>
         </form>
         <div className="result">
           {shortUrl==='' ? <p id="url-none">Sua URL aparecerá aqui</p> : <a href={shortUrl} target="blank" id="url-result">{shortUrl}</a>}
-          {shortUrl!=='' ? <button onClick={copy} id="copy">{copied ? 'Copiado!' : 'Copiar'}</button> : <button id="copy" disabled>Copiar</button> }
+          <button onClick={copy} disabled={shortUrl===''} id="copy">{copied ? 'Copiado!' : 'Copiar'}</button>
+        </div>
+        <div className="error">
+          {isError && <p id="error">Ocorreu um erro ao encurtar a URL.</p>}
         </div>
       </main>
 

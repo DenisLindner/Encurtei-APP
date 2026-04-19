@@ -19,7 +19,6 @@ export default async function GenerateShortUrl(url: string) {
         return {error: 'Erro ao encurtar URL!'}
       }
     }catch(err) {
-        console.error('Error: '+err)
         return {error: 'Erro ao encurtar URL!'};
     }
 }

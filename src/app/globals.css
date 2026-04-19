@@ -14,6 +14,7 @@
 
 body {
   min-height: 100vh;
+  background-color: var(--background);
 }
 
 .content {
@@ -115,6 +116,10 @@ form button:hover {
   transition: 0.25s;
 }
 
+form button:disabled {
+  background-color: rgba(255, 68, 0, 0.39);
+}
+
 footer {
   display: flex;
   padding: 3rem 0;
@@ -150,6 +155,16 @@ footer p {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.error {
+  text-align: center;
+  width: 80%;
+}
+
+#error {
+  color: red;
+  font-size: 1.125rem;
 }
 
 @media(max-width: 740px) {
