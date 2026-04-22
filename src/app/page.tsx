@@ -9,6 +9,7 @@ export default function Home() {
   const [copied, setCopied] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isError, setIsError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,8 +20,14 @@ export default function Home() {
       const newUrl = window.location.origin+'/'+result.shortUrl
       setShortUrl(newUrl);
       setCopied(false);
+      setIsError(false);
     } else {
       setIsError(true);
+      if (result.error) {
+        setErrorMessage(result.error);
+      } else {
+        setErrorMessage("Ocorreu um erro ao encurtar a URL.");
+      }
     }
     setLoading(false);
   }
@@ -51,7 +58,7 @@ export default function Home() {
           <button onClick={copy} disabled={shortUrl===''} id="copy">{copied ? 'Copiado!' : 'Copiar'}</button>
         </div>
         <div className="error">
-          {isError && <p id="error">Ocorreu um erro ao encurtar a URL.</p>}
+          {isError && <p id="error">{errorMessage}</p>}
         </div>
       </main>
 

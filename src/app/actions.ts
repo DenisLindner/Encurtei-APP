@@ -10,15 +10,15 @@ export default async function GenerateShortUrl(url: string) {
       })
 
       const data = await res.json()
-
-      console.log(data);
       
       if(data.shortUrl) {
         return {shortUrl: data.shortUrl};
+      } else if(data.statusCode === 429) {
+        return {error: 'Erro ao encurtar URL. Muitas tentativas seguidas. Tente novamente mais tarde.'}
       } else {
         return {error: 'Erro ao encurtar URL!'}
       }
-    }catch(err) {
+    } catch {
         return {error: 'Erro ao encurtar URL!'};
     }
 }
