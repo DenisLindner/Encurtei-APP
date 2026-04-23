@@ -91,7 +91,23 @@ main header p {
 form {
   width: 80%;
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+form div {
+  display: flex;
   gap: 8px;
+}
+
+#path-input {
+  flex-direction: column;
+  gap: 4px;
+}
+
+#path-input label {
+  font-weight: 600;
+  padding: 4px 8px;
 }
 
 form input {
@@ -135,7 +151,7 @@ footer p {
   margin: 0 auto;
 }
 
-#url {
+#url, #path {
   font-size: 1.125rem;
 }
 
@@ -169,13 +185,14 @@ footer p {
   font-size: 1.125rem;
 }
 
-@media(max-width: 740px) {
+@media(max-width: 739px) {
   form {
+    width: 90%;
     flex-direction: column;
   }
 
   .result {
-    width: 80%;
+    width: 90%;
     padding: 0;
     display: flex;
     background-color: var(--background);
@@ -199,5 +216,15 @@ footer p {
     padding: 16px;
     width: 100%;
     border-radius: 6px;
+  }
+
+  .desktop {
+    display: none;
+  }
+}
+
+@media(min-width: 740px) {
+  .mobile {
+    display: none;
   }
 }

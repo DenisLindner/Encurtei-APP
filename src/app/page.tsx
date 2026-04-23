@@ -5,6 +5,7 @@ import GenerateShortUrl from "./actions";
 
 export default function Home() {
   const [url, setUrl] = useState('')
+  const [path, setPath] = useState('')
   const [shortUrl, setShortUrl] = useState('')
   const [copied, setCopied] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -14,7 +15,7 @@ export default function Home() {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    const result = await GenerateShortUrl(url);
+    const result = await GenerateShortUrl(url, path.trim());
     
     if(result.shortUrl) {
       const newUrl = window.location.origin+'/'+result.shortUrl
@@ -33,7 +34,11 @@ export default function Home() {
   }
 
   const handleUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl(e.target.value)
+    if (e.target.id === 'path') {
+      setPath(e.target.value)
+    } else if(e.target.id === 'url') {
+      setUrl(e.target.value)
+    }
   }
 
   const copy = async () => {
@@ -48,9 +53,18 @@ export default function Home() {
           <p>Encurte qualquer link com a nossa ferramenta</p>
         </header>
         <form onSubmit={handleSubmit}>
-          <input onChange={handleUpdate} value={url} type="url" name="url" id="url" placeholder="Insira a sua URL aqui" required/>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Encurtando...' : 'Encurtar'}
+          <div>
+            <input onChange={handleUpdate} value={url} type="url" name="url" id="url" placeholder="Insira a sua URL aqui" required/>
+            <button type="submit" className="desktop" disabled={loading}>
+              {loading ? 'Encurtando...' : 'Encurtar'}
+            </button>
+          </div>
+          <div id="path-input">
+            <label>Caminho (Opcional):</label>
+            <input onChange={handleUpdate} value={path} type="text" name="path" id="path" placeholder="Insira o Caminho Personalizado"/>
+          </div>
+          <button type="submit" className="mobile" disabled={loading}>
+              {loading ? 'Encurtando...' : 'Encurtar'}
           </button>
         </form>
         <div className="result">
