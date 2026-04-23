@@ -12,9 +12,18 @@
   --foreground: #171717;
 }
 
+
+@media(prefers-color-scheme: dark) {
+  :root {
+    --background: #171717;
+    --foreground: #ffffff;
+  }
+}
+
 body {
   min-height: 100vh;
   background-color: var(--background);
+  color: var(--foreground);
 }
 
 .content {
@@ -115,6 +124,13 @@ form input {
   padding: 16px;
   width: 2fr;
   border-radius: 6px;
+  background-color: var(--background);
+  border: 2px solid var(--foreground);
+  color: var(--foreground);
+}
+
+form input::placeholder {
+  color: gray;
 }
 
 form button {
@@ -165,6 +181,13 @@ footer p {
   color: darkblue;
 }
 
+@media(prefers-color-scheme: dark) {
+  #url-result {
+    font-size: 1.125rem;
+    color: lightblue;
+  }
+}
+
 #not-found {
   min-height: 100vh;
   display: flex;
@@ -183,6 +206,13 @@ footer p {
 #error {
   color: red;
   font-size: 1.125rem;
+}
+
+
+@media(prefers-color-scheme: dark) {
+  #error {
+    color: rgb(255, 38, 38);
+  }
 }
 
 @media(max-width: 739px) {
